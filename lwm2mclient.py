@@ -5,14 +5,15 @@ import re
 object_uri = r'^/\d+/\d+$'   
 import logging   
 import json
+from lwm2mclient import definitions
 logging.basicConfig(level=logging.DEBUG,format='%(levelname)s %(message)s')    
 logger = logging.getLogger('lwm2mclient')  
 client_resource={}
 class ObjectRouter(object):
     InstanceID=[0,1,2,3,4,5,6,7,8,9]
-    def __init__(self,def_object="defs.json"):
-        with open(def_object) as f:
-            self.definition=json.load(f)
+    def __init__(self): #,def_object="defs.json"):
+        # with open(def_object) as f:
+        self.definition= definitions.device#json.load(f)
 
     def objects_oid(self):
         if "oid" in self.definition:

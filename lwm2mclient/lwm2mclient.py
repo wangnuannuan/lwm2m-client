@@ -261,21 +261,3 @@ class Client(ObjRegistry,resource.Site):
         pass
 
 
-
-
-    # def run(self,register=False,unregister=False):
-        # if register:
-
-
-
-
-
-
-
-
-
-
-
-
-    # def createResource(self):
-

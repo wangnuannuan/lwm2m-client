@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+      <title>WebSocket demo</title>
+      <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script>
+         var ws=null;
+         function connect(){
+            ws = new WebSocket("ws://127.0.0.1:8756/");
+            var messages = document.createElement('ul');
+            ws.onmessage = function (event) {
+
+               var messages = document.getElementsByTagName('textarea')[0],
+               message = document.createElement('li'),
+               content = document.createTextNode(event.data);
+               message.appendChild(content);
+               messages.appendChild(message);
+            };
+            document.body.appendChild(messages);
+
+         }
+         function click_connect(){
+            if (ws!=null){
+               ws.close();
+               ws=null;
+
+            }
+         }
+         function lwm2m_read(){
+            var send_msg=document.getElementById("sendmsg").value;
+            ws.send("lwm2m read "+send_msg);
+         }
+         function lwm2m_write(){
+            var send_msg=document.getElementById("sendmsg").value;
+            ws.send("lwm2m write "+send_msg);
+         }
+         function lwm2m_observe(){
+            var send_msg=document.getElementById("sendmsg").value;
+            ws.send("lwm2m observe "+send_msg);
+         }
+         function lwm2m_execute(){
+            var send_msg=document.getElementById("sendmsg").value;
+            ws.send("lwm2m execute "+send_msg);
+         }
+         function lwm2m_discover(){
+            var send_msg=document.getElementById("sendmsg").value;
+            ws.send("lwm2m discover "+send_msg);
+         }
+
+      </script>
+    </head>
+
+    <body>
+      <div style="position:absolute;top:3%">
+         <button onclick ="connect()">connect</button>
+         <button onclick="lwm2m_read()">read</button>
+         <button onclick="lwm2m_write()">write</button>
+         <button onclick="lwm2m_observe()">observe</button>
+         <button onclick="lwm2m_execute()">execute</button>
+         <button onclick="lwm2m_discover()">discover</button>
+      </div>
+      <div style="position:absolute;top:6%">
+         <p>message: <input id="sendmsg" style="width:24.5em;height:2em;" type="text" value="devicename objectmessage[/3303/0/5700]"><br></p>
+      </div>
+
+   <div style="position:absolute;top:15%">
+      <textarea style="width:30em;height:15em;overflow:auto;border:1px solid black" id="log"></textarea> 
+   </div>
+        
+    </body>
+
+</html>
